@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.bupt.springmvc.web.dao.ShopMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.bupt.springmvc.web.model.Shop" >
+    <id column="shop_id" property="shopId" jdbcType="BIGINT" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="shop_introduction" property="shopIntroduction" jdbcType="VARCHAR" />
+    <result column="shop_type" property="shopType" jdbcType="TINYINT" />
+    <result column="shop_cover" property="shopCover" jdbcType="VARCHAR" />
+    <result column="merchant_id" property="merchantId" jdbcType="BIGINT" />
+    <result column="merchant_name" property="merchantName" jdbcType="VARCHAR" />
+    <result column="shop_state" property="shopState" jdbcType="TINYINT" />
+    <result column="shop_create_date" property="shopCreateDate" jdbcType="TIMESTAMP" />
+    <result column="shop_update_date" property="shopUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="shop_is_delete" property="shopIsDelete" jdbcType="TINYINT" />
+    <result column="shop_locate_province" property="shopLocateProvince" jdbcType="VARCHAR" />
+    <result column="shop_locate_city" property="shopLocateCity" jdbcType="VARCHAR" />
+    <result column="shop_locate_area" property="shopLocateArea" jdbcType="VARCHAR" />
+    <result column="shop_is_open" property="shopIsOpen" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    shop_id, shop_name, shop_introduction, shop_type, shop_cover, merchant_id, merchant_name, 
+    shop_state, shop_create_date, shop_update_date, shop_is_delete, shop_locate_province, 
+    shop_locate_city, shop_locate_area, shop_is_open
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.edu.bupt.springmvc.web.model.ShopExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from szb_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from szb_shop
+    where shop_id = #{shopId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from szb_shop
+    where shop_id = #{shopId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.edu.bupt.springmvc.web.model.ShopExample" >
+    delete from szb_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.edu.bupt.springmvc.web.model.Shop" useGeneratedKeys="true" keyProperty="shopId">
+    insert into szb_shop (shop_id, shop_name, shop_introduction, 
+      shop_type, shop_cover, merchant_id, 
+      merchant_name, shop_state, shop_create_date, 
+      shop_update_date, shop_is_delete, shop_locate_province, 
+      shop_locate_city, shop_locate_area, shop_is_open
+      )
+    values (#{shopId,jdbcType=BIGINT}, #{shopName,jdbcType=VARCHAR}, #{shopIntroduction,jdbcType=VARCHAR}, 
+      #{shopType,jdbcType=TINYINT}, #{shopCover,jdbcType=VARCHAR}, #{merchantId,jdbcType=BIGINT}, 
+      #{merchantName,jdbcType=VARCHAR}, #{shopState,jdbcType=TINYINT}, #{shopCreateDate,jdbcType=TIMESTAMP}, 
+      #{shopUpdateDate,jdbcType=TIMESTAMP}, #{shopIsDelete,jdbcType=TINYINT}, #{shopLocateProvince,jdbcType=VARCHAR}, 
+      #{shopLocateCity,jdbcType=VARCHAR}, #{shopLocateArea,jdbcType=VARCHAR}, #{shopIsOpen,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.bupt.springmvc.web.model.Shop" useGeneratedKeys="true" keyProperty="shopId">
+    insert into szb_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="shopIntroduction != null" >
+        shop_introduction,
+      </if>
+      <if test="shopType != null" >
+        shop_type,
+      </if>
+      <if test="shopCover != null" >
+        shop_cover,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="merchantName != null" >
+        merchant_name,
+      </if>
+      <if test="shopState != null" >
+        shop_state,
+      </if>
+      <if test="shopCreateDate != null" >
+        shop_create_date,
+      </if>
+      <if test="shopUpdateDate != null" >
+        shop_update_date,
+      </if>
+      <if test="shopIsDelete != null" >
+        shop_is_delete,
+      </if>
+      <if test="shopLocateProvince != null" >
+        shop_locate_province,
+      </if>
+      <if test="shopLocateCity != null" >
+        shop_locate_city,
+      </if>
+      <if test="shopLocateArea != null" >
+        shop_locate_area,
+      </if>
+      <if test="shopIsOpen != null" >
+        shop_is_open,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=BIGINT},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopIntroduction != null" >
+        #{shopIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="shopType != null" >
+        #{shopType,jdbcType=TINYINT},
+      </if>
+      <if test="shopCover != null" >
+        #{shopCover,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantName != null" >
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopState != null" >
+        #{shopState,jdbcType=TINYINT},
+      </if>
+      <if test="shopCreateDate != null" >
+        #{shopCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopUpdateDate != null" >
+        #{shopUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopIsDelete != null" >
+        #{shopIsDelete,jdbcType=TINYINT},
+      </if>
+      <if test="shopLocateProvince != null" >
+        #{shopLocateProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLocateCity != null" >
+        #{shopLocateCity,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLocateArea != null" >
+        #{shopLocateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shopIsOpen != null" >
+        #{shopIsOpen,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.edu.bupt.springmvc.web.model.ShopExample" resultType="java.lang.Integer" >
+    select count(*) from szb_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update szb_shop
+    <set >
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=BIGINT},
+      </if>
+      <if test="record.shopName != null" >
+        shop_name = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopIntroduction != null" >
+        shop_introduction = #{record.shopIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopType != null" >
+        shop_type = #{record.shopType,jdbcType=TINYINT},
+      </if>
+      <if test="record.shopCover != null" >
+        shop_cover = #{record.shopCover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantId != null" >
+        merchant_id = #{record.merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchantName != null" >
+        merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopState != null" >
+        shop_state = #{record.shopState,jdbcType=TINYINT},
+      </if>
+      <if test="record.shopCreateDate != null" >
+        shop_create_date = #{record.shopCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shopUpdateDate != null" >
+        shop_update_date = #{record.shopUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shopIsDelete != null" >
+        shop_is_delete = #{record.shopIsDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.shopLocateProvince != null" >
+        shop_locate_province = #{record.shopLocateProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopLocateCity != null" >
+        shop_locate_city = #{record.shopLocateCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopLocateArea != null" >
+        shop_locate_area = #{record.shopLocateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopIsOpen != null" >
+        shop_is_open = #{record.shopIsOpen,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update szb_shop
+    set shop_id = #{record.shopId,jdbcType=BIGINT},
+      shop_name = #{record.shopName,jdbcType=VARCHAR},
+      shop_introduction = #{record.shopIntroduction,jdbcType=VARCHAR},
+      shop_type = #{record.shopType,jdbcType=TINYINT},
+      shop_cover = #{record.shopCover,jdbcType=VARCHAR},
+      merchant_id = #{record.merchantId,jdbcType=BIGINT},
+      merchant_name = #{record.merchantName,jdbcType=VARCHAR},
+      shop_state = #{record.shopState,jdbcType=TINYINT},
+      shop_create_date = #{record.shopCreateDate,jdbcType=TIMESTAMP},
+      shop_update_date = #{record.shopUpdateDate,jdbcType=TIMESTAMP},
+      shop_is_delete = #{record.shopIsDelete,jdbcType=TINYINT},
+      shop_locate_province = #{record.shopLocateProvince,jdbcType=VARCHAR},
+      shop_locate_city = #{record.shopLocateCity,jdbcType=VARCHAR},
+      shop_locate_area = #{record.shopLocateArea,jdbcType=VARCHAR},
+      shop_is_open = #{record.shopIsOpen,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.bupt.springmvc.web.model.Shop" >
+    update szb_shop
+    <set >
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopIntroduction != null" >
+        shop_introduction = #{shopIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="shopType != null" >
+        shop_type = #{shopType,jdbcType=TINYINT},
+      </if>
+      <if test="shopCover != null" >
+        shop_cover = #{shopCover,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+      <if test="merchantName != null" >
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopState != null" >
+        shop_state = #{shopState,jdbcType=TINYINT},
+      </if>
+      <if test="shopCreateDate != null" >
+        shop_create_date = #{shopCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopUpdateDate != null" >
+        shop_update_date = #{shopUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopIsDelete != null" >
+        shop_is_delete = #{shopIsDelete,jdbcType=TINYINT},
+      </if>
+      <if test="shopLocateProvince != null" >
+        shop_locate_province = #{shopLocateProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLocateCity != null" >
+        shop_locate_city = #{shopLocateCity,jdbcType=VARCHAR},
+      </if>
+      <if test="shopLocateArea != null" >
+        shop_locate_area = #{shopLocateArea,jdbcType=VARCHAR},
+      </if>
+      <if test="shopIsOpen != null" >
+        shop_is_open = #{shopIsOpen,jdbcType=TINYINT},
+      </if>
+    </set>
+    where shop_id = #{shopId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.bupt.springmvc.web.model.Shop" >
+    update szb_shop
+    set shop_name = #{shopName,jdbcType=VARCHAR},
+      shop_introduction = #{shopIntroduction,jdbcType=VARCHAR},
+      shop_type = #{shopType,jdbcType=TINYINT},
+      shop_cover = #{shopCover,jdbcType=VARCHAR},
+      merchant_id = #{merchantId,jdbcType=BIGINT},
+      merchant_name = #{merchantName,jdbcType=VARCHAR},
+      shop_state = #{shopState,jdbcType=TINYINT},
+      shop_create_date = #{shopCreateDate,jdbcType=TIMESTAMP},
+      shop_update_date = #{shopUpdateDate,jdbcType=TIMESTAMP},
+      shop_is_delete = #{shopIsDelete,jdbcType=TINYINT},
+      shop_locate_province = #{shopLocateProvince,jdbcType=VARCHAR},
+      shop_locate_city = #{shopLocateCity,jdbcType=VARCHAR},
+      shop_locate_area = #{shopLocateArea,jdbcType=VARCHAR},
+      shop_is_open = #{shopIsOpen,jdbcType=TINYINT}
+    where shop_id = #{shopId,jdbcType=BIGINT}
+  </update>
+</mapper>

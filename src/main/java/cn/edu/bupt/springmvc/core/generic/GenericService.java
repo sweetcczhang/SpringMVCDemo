@@ -1,0 +1,62 @@
+package cn.edu.bupt.springmvc.core.generic;
+
+import cn.edu.bupt.springmvc.web.exception.DataFailException;
+
+import java.util.List;
+
+/**
+ * 所有自定义Service的顶级接口,封装常用的增删查改操作
+ * <p/>
+ * Model : 代表数据库中的表 映射的Java对象类型
+ * PK :代表对象的主键类型
+ * <p>
+ * Created by FirenzesEagle on 2016/4/18 0018.
+ */
+public interface GenericService<Model, PK> {
+
+    /**
+     * 插入对象
+     *
+     * @param model 对象
+     */
+    Long insert(Model model) throws DataFailException;
+
+    /**
+     * 更新对象
+     *
+     * @param model 对象
+     */
+    int update(Model model) throws DataFailException;
+
+    /**
+     * 通过主键, 删除对象
+     *
+     * @param id 主键
+     */
+    int delete(PK id) throws DataFailException;
+
+    /**
+     * 通过主键, 查询对象
+     *
+     * @param id 主键
+     * @return model 对象
+     */
+    Model selectById(PK id) throws DataFailException;
+
+
+    /**
+     * 查询单个对象
+     *
+     * @return 对象
+     */
+    Model selectOne() throws DataFailException;
+
+
+    /**
+     * 查询多个对象
+     *
+     * @return 对象集合
+     */
+    List<Model> selectList() throws DataFailException;
+
+}
